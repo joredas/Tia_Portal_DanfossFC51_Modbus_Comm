@@ -1,0 +1,797 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V18" />
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <HeaderAuthor>Siemens_Digital_Industry_Support</HeaderAuthor>
+      <HeaderFamily>LGF</HeaderFamily>
+      <HeaderName>LGF_ScaleLinear</HeaderName>
+      <HeaderVersion>0.0.0.0</HeaderVersion>
+      <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+  <Section Name="Input">
+    <Member Name="x" Datatype="LReal" />
+    <Member Name="x1" Datatype="LReal" />
+    <Member Name="y1" Datatype="LReal" />
+    <Member Name="x2" Datatype="LReal" />
+    <Member Name="y2" Datatype="LReal" />
+    <Member Name="yMin" Datatype="LReal" />
+    <Member Name="yMax" Datatype="LReal" />
+  </Section>
+  <Section Name="Output">
+    <Member Name="error" Datatype="Bool" />
+    <Member Name="status" Datatype="Word" />
+  </Section>
+  <Section Name="InOut" />
+  <Section Name="Temp">
+    <Member Name="tempY" Datatype="LReal" />
+    <Member Name="tempStatus" Datatype="Word" />
+  </Section>
+  <Section Name="Constant">
+    <Member Name="STATUS_FINISHED_NO_ERROR" Datatype="Word">
+      <StartValue>16#0000</StartValue>
+    </Member>
+    <Member Name="ERR_LOW_LIM_OVER_UP_LIM" Datatype="Word">
+      <StartValue>16#8200</StartValue>
+    </Member>
+    <Member Name="WARN_Y_LIMITED_TO_YMIN" Datatype="Word">
+      <StartValue>16#6001</StartValue>
+    </Member>
+    <Member Name="WARN_Y_LIMITED_TO_YMAX" Datatype="Word">
+      <StartValue>16#6002</StartValue>
+    </Member>
+    <Member Name="PRECISION" Datatype="LReal">
+      <StartValue>1.0E-06</StartValue>
+    </Member>
+  </Section>
+  <Section Name="Return">
+    <Member Name="Ret_Val" Datatype="LReal" />
+  </Section>
+</Sections></Interface>
+      <IsIECCheckEnabled>true</IsIECCheckEnabled>
+      <MemoryLayout>Optimized</MemoryLayout>
+      <Name>LGF_ScaleLinear</Name>
+      <Namespace />
+      <Number>10039</Number>
+      <ProgrammingLanguage>SCL</ProgrammingLanguage>
+      <SetENOAutomatically>false</SetENOAutomatically>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>zh-CN</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="3" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v3">
+  <Token Text="REGION" UId="21" />
+  <Blank UId="22" />
+  <Text UId="23">BLOCK INFO HEADER</Text>
+  <NewLine UId="24" />
+  <Blank Num="2" UId="25" />
+  <LineComment UId="26">
+    <Text UId="27">===============================================================================</Text>
+  </LineComment>
+  <NewLine UId="28" />
+  <Blank Num="2" UId="29" />
+  <LineComment UId="30">
+    <Text UId="31"> SIEMENS AG / (c)Copyright 2017</Text>
+  </LineComment>
+  <NewLine UId="32" />
+  <Blank Num="2" UId="33" />
+  <LineComment UId="34">
+    <Text UId="35">-------------------------------------------------------------------------------</Text>
+  </LineComment>
+  <NewLine UId="36" />
+  <Blank Num="2" UId="37" />
+  <LineComment UId="38">
+    <Text UId="39"> Title:            LGF_ScaleLinear</Text>
+  </LineComment>
+  <NewLine UId="40" />
+  <Blank Num="2" UId="41" />
+  <LineComment UId="42">
+    <Text UId="43"> Comment/Function: This function scales an input variable (`LReal`) via a linear straight-line equation.</Text>
+  </LineComment>
+  <NewLine UId="44" />
+  <Blank Num="2" UId="45" />
+  <LineComment UId="46">
+    <Text UId="47"> Library/Family:   LGF(Library General Functions)</Text>
+  </LineComment>
+  <NewLine UId="48" />
+  <Blank Num="2" UId="49" />
+  <LineComment UId="50">
+    <Text UId="51"> Author:           Siemens Digital Industry Support</Text>
+  </LineComment>
+  <NewLine UId="52" />
+  <Blank Num="2" UId="53" />
+  <LineComment UId="54">
+    <Text UId="55"> Tested with:      S7-PLCSIM Advanced V2.0 SP1</Text>
+  </LineComment>
+  <NewLine UId="56" />
+  <Blank Num="2" UId="57" />
+  <LineComment UId="58">
+    <Text UId="59"> Engineering:      TIA Portal V14 Upd 1</Text>
+  </LineComment>
+  <NewLine UId="60" />
+  <Blank Num="2" UId="61" />
+  <LineComment UId="62">
+    <Text UId="63"> Restrictions:     ENO mechanism is not used, Error handling done by error and status</Text>
+  </LineComment>
+  <NewLine UId="64" />
+  <Blank Num="2" UId="65" />
+  <LineComment UId="66">
+    <Text UId="67"> Requirements:     PLC (S7-1200 / S7-1500)</Text>
+  </LineComment>
+  <NewLine UId="68" />
+  <Blank Num="2" UId="69" />
+  <LineComment UId="70">
+    <Text UId="71">-------------------------------------------------------------------------------</Text>
+  </LineComment>
+  <NewLine UId="72" />
+  <Blank Num="2" UId="73" />
+  <LineComment UId="74">
+    <Text UId="75"> Change log table:</Text>
+  </LineComment>
+  <NewLine UId="76" />
+  <Blank Num="2" UId="77" />
+  <LineComment UId="78">
+    <Text UId="79"> Version  | Date       | Expert in charge       | Changes applied</Text>
+  </LineComment>
+  <NewLine UId="80" />
+  <Blank Num="2" UId="81" />
+  <LineComment UId="82">
+    <Text UId="83">----------|------------|------------------------|------------------------------</Text>
+  </LineComment>
+  <NewLine UId="84" />
+  <Blank Num="2" UId="85" />
+  <LineComment UId="86">
+    <Text UId="87"> 01.00.00 | 27.01.2017 | Siemens Industry Online Support</Text>
+  </LineComment>
+  <NewLine UId="88" />
+  <Blank Num="2" UId="89" />
+  <LineComment UId="90">
+    <Text UId="91">                         First released version</Text>
+  </LineComment>
+  <NewLine UId="92" />
+  <Blank Num="2" UId="93" />
+  <LineComment UId="94">
+    <Text UId="95"> 01.00.01 | 17.08.2018 | Siemens Industry Online Support</Text>
+  </LineComment>
+  <NewLine UId="96" />
+  <Blank Num="2" UId="97" />
+  <LineComment UId="98">
+    <Text UId="99">                         Upgrade: TIA V15 Update 2</Text>
+  </LineComment>
+  <NewLine UId="100" />
+  <Blank Num="2" UId="101" />
+  <LineComment UId="102">
+    <Text UId="103"> 01.00.02 | 23.11.2018 | Siemens Industry Online Support</Text>
+  </LineComment>
+  <NewLine UId="104" />
+  <Blank Num="2" UId="105" />
+  <LineComment UId="106">
+    <Text UId="107">                         Upgrade: TIA V15.1</Text>
+  </LineComment>
+  <NewLine UId="108" />
+  <Blank Num="2" UId="109" />
+  <LineComment UId="110">
+    <Text UId="111"> 02.00.00 | 25.01.2019 | Simatic Systems Support</Text>
+  </LineComment>
+  <NewLine UId="112" />
+  <Blank Num="2" UId="113" />
+  <LineComment UId="114">
+    <Text UId="115">                         Data type changed from Variant to LReal</Text>
+  </LineComment>
+  <NewLine UId="116" />
+  <Blank Num="2" UId="117" />
+  <LineComment UId="118">
+    <Text UId="119"> 02.00.01 | 25.06.2019 | Simatic Systems Support</Text>
+  </LineComment>
+  <NewLine UId="120" />
+  <Blank Num="2" UId="121" />
+  <LineComment UId="122">
+    <Text UId="123">                         Standard header and block parameters update, status parameter added</Text>
+  </LineComment>
+  <NewLine UId="124" />
+  <Blank Num="2" UId="125" />
+  <LineComment UId="126">
+    <Text UId="127">                         LReal value comparison added</Text>
+  </LineComment>
+  <NewLine UId="128" />
+  <Blank Num="2" UId="129" />
+  <LineComment UId="130">
+    <Text UId="131">                         Result parameter changed to return value of FC for use in SCL</Text>
+  </LineComment>
+  <NewLine UId="132" />
+  <Blank Num="2" UId="133" />
+  <LineComment UId="134">
+    <Text UId="135">                         Warning number changed to range of 16#6xxx</Text>
+  </LineComment>
+  <NewLine UId="136" />
+  <Blank Num="2" UId="137" />
+  <LineComment UId="138">
+    <Text UId="139">                         refactor variable handling and extract returns in between the code</Text>
+  </LineComment>
+  <NewLine UId="140" />
+  <Blank Num="2" UId="141" />
+  <LineComment UId="142">
+    <Text UId="143">                         add ENO handling</Text>
+  </LineComment>
+  <NewLine UId="144" />
+  <Blank Num="2" UId="145" />
+  <LineComment UId="146">
+    <Text UId="147"> 03.00.00 | 23.04.2020 | Simatic Systems Support | Set version to V3.0.0</Text>
+  </LineComment>
+  <NewLine UId="148" />
+  <Blank Num="2" UId="149" />
+  <LineComment UId="150">
+    <Text UId="151">                         harmonize the version of the whole library</Text>
+  </LineComment>
+  <NewLine UId="152" />
+  <Blank Num="2" UId="153" />
+  <LineComment UId="154">
+    <Text UId="155"> 03.00.01 | 12.11.2020 | Simatic Systems Support</Text>
+  </LineComment>
+  <NewLine UId="156" />
+  <Blank Num="2" UId="157" />
+  <LineComment UId="158">
+    <Text UId="159">                         Insert documentation</Text>
+  </LineComment>
+  <NewLine UId="160" />
+  <Blank Num="2" UId="161" />
+  <LineComment UId="162">
+    <Text UId="163">                         Move to folder "Math operations"</Text>
+  </LineComment>
+  <NewLine UId="164" />
+  <Blank Num="2" UId="165" />
+  <LineComment UId="166">
+    <Text UId="167">=============================================================================</Text>
+  </LineComment>
+  <NewLine UId="168" />
+  <Token Text="END_REGION" UId="169" />
+  <Blank UId="170" />
+  <Text UId="171">Block info header</Text>
+  <NewLine Num="2" UId="172" />
+  <Token Text="REGION" UId="173" />
+  <Blank UId="174" />
+  <Text UId="175">DESCRIPTION</Text>
+  <NewLine UId="176" />
+  <Blank Num="2" UId="177" />
+  <Comment Inserted="true" UId="178">
+    <MultiLanguageText Lang="zh-CN" />
+  </Comment>
+  <NewLine UId="180" />
+  <Token Text="END_REGION" UId="181" />
+  <Blank UId="182" />
+  <Text UId="183">DESCRIPTION</Text>
+  <NewLine Num="2" UId="184" />
+  <Token Text="REGION" UId="185" />
+  <Blank UId="186" />
+  <Text UId="187">INITIALISATION</Text>
+  <NewLine UId="188" />
+  <Blank Num="2" UId="189" />
+  <Access Scope="LocalVariable" UId="190">
+    <Symbol UId="191">
+      <Component Name="tempY" UId="192" />
+    </Symbol>
+  </Access>
+  <Blank UId="193" />
+  <Token Text=":=" UId="194" />
+  <Blank UId="195" />
+  <Access Scope="LiteralConstant" UId="196">
+    <Constant UId="197">
+      <ConstantValue UId="199">0.0</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="200" />
+  <NewLine UId="201" />
+  <Blank Num="2" UId="202" />
+  <Access Scope="LocalVariable" UId="203">
+    <Symbol UId="204">
+      <Component Name="tempStatus" UId="205" />
+    </Symbol>
+  </Access>
+  <Blank UId="206" />
+  <Token Text=":=" UId="207" />
+  <Blank UId="208" />
+  <Access Scope="LocalConstant" UId="209">
+    <Constant Name="STATUS_FINISHED_NO_ERROR" UId="210" />
+  </Access>
+  <Token Text=";" UId="213" />
+  <NewLine UId="214" />
+  <Token Text="END_REGION" UId="215" />
+  <NewLine Num="2" UId="216" />
+  <Token Text="REGION" UId="217" />
+  <Blank UId="218" />
+  <Text UId="219">CONVERT</Text>
+  <NewLine UId="220" />
+  <Blank Num="2" UId="221" />
+  <LineComment UId="222">
+    <Text UId="223"> check if limits in a plausible range</Text>
+  </LineComment>
+  <NewLine UId="224" />
+  <Blank Num="2" UId="225" />
+  <LineComment UId="226">
+    <Text UId="227"> --&gt; higher limit has to be greater than lower limit</Text>
+  </LineComment>
+  <NewLine UId="228" />
+  <Blank Num="2" UId="229" />
+  <Token Text="IF" UId="230" />
+  <Blank UId="231" />
+  <Token Text="(" UId="232" />
+  <Access Scope="LocalVariable" UId="233">
+    <Symbol UId="234">
+      <Component Name="yMin" UId="235" />
+    </Symbol>
+  </Access>
+  <Blank UId="236" />
+  <Token Text="&gt;" UId="237" />
+  <Blank UId="238" />
+  <Access Scope="LocalVariable" UId="239">
+    <Symbol UId="240">
+      <Component Name="yMax" UId="241" />
+    </Symbol>
+  </Access>
+  <Token Text=")" UId="242" />
+  <Blank UId="243" />
+  <Token Text="THEN" UId="244" />
+  <NewLine UId="245" />
+  <Blank Num="4" UId="246" />
+  <Access Scope="LocalVariable" UId="247">
+    <Symbol UId="248">
+      <Component Name="tempY" UId="249" />
+    </Symbol>
+  </Access>
+  <Blank UId="250" />
+  <Token Text=":=" UId="251" />
+  <Blank UId="252" />
+  <Access Scope="LiteralConstant" UId="253">
+    <Constant UId="254">
+      <ConstantValue UId="256">0.0</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="257" />
+  <NewLine UId="258" />
+  <Blank Num="4" UId="259" />
+  <Access Scope="LocalVariable" UId="260">
+    <Symbol UId="261">
+      <Component Name="tempStatus" UId="262" />
+    </Symbol>
+  </Access>
+  <Blank UId="263" />
+  <Token Text=":=" UId="264" />
+  <Blank UId="265" />
+  <Access Scope="LocalConstant" UId="266">
+    <Constant Name="ERR_LOW_LIM_OVER_UP_LIM" UId="267" />
+  </Access>
+  <Token Text=";" UId="270" />
+  <NewLine UId="271" />
+  <Blank Num="4" UId="272" />
+  <NewLine UId="273" />
+  <Blank Num="2" UId="274" />
+  <Token Text="ELSE" UId="275" />
+  <LineComment UId="276">
+    <Text UId="277"> no error, process scaling</Text>
+  </LineComment>
+  <NewLine UId="278" />
+  <Blank Num="4" UId="279" />
+  <LineComment UId="280">
+    <Text UId="281"> Scale algorithm</Text>
+  </LineComment>
+  <NewLine UId="282" />
+  <Blank Num="4" UId="283" />
+  <Token Text="IF" UId="284" />
+  <Blank UId="285" />
+  <Token Text="(" UId="286" />
+  <Access Scope="Call" UId="287">
+    <Instruction Name="ABS" UId="288">
+      <Token Text="(" UId="289" />
+      <NamelessParameter UId="290">
+        <Access Scope="LocalVariable" UId="291">
+          <Symbol UId="292">
+            <Component Name="x1" UId="293" />
+          </Symbol>
+        </Access>
+        <Blank UId="294" />
+        <Token Text="-" UId="295" />
+        <Blank UId="296" />
+        <Access Scope="LocalVariable" UId="297">
+          <Symbol UId="298">
+            <Component Name="x2" UId="299" />
+          </Symbol>
+        </Access>
+      </NamelessParameter>
+      <Token Text=")" UId="301" />
+    </Instruction>
+  </Access>
+  <Blank UId="302" />
+  <Token Text="&lt;=" UId="303" />
+  <Blank UId="304" />
+  <Token Text="(" UId="305" />
+  <Access Scope="LocalConstant" UId="306">
+    <Constant Name="PRECISION" UId="307" />
+  </Access>
+  <Blank UId="310" />
+  <Token Text="*" UId="311" />
+  <Blank UId="312" />
+  <Access Scope="Call" UId="313">
+    <Instruction Name="ABS" UId="314">
+      <Token Text="(" UId="315" />
+      <NamelessParameter UId="316">
+        <Access Scope="LocalVariable" UId="317">
+          <Symbol UId="318">
+            <Component Name="x1" UId="319" />
+          </Symbol>
+        </Access>
+      </NamelessParameter>
+      <Token Text=")" UId="321" />
+    </Instruction>
+  </Access>
+  <Token Text=")" UId="322" />
+  <Token Text=")" UId="323" />
+  <Blank UId="324" />
+  <Token Text="THEN" UId="325" />
+  <NewLine UId="326" />
+  <Blank Num="6" UId="327" />
+  <LineComment UId="328">
+    <Text UId="329">The slope is approximately ZERO.</Text>
+  </LineComment>
+  <NewLine UId="330" />
+  <Blank Num="6" UId="331" />
+  <LineComment UId="332">
+    <Text UId="333">Special CASE, use a different equation, NOT "y = m*x+t", instead you use "x = y1"</Text>
+  </LineComment>
+  <NewLine UId="334" />
+  <Blank Num="6" UId="335" />
+  <Access Scope="LocalVariable" UId="336">
+    <Symbol UId="337">
+      <Component Name="tempY" UId="338" />
+    </Symbol>
+  </Access>
+  <Blank UId="339" />
+  <Token Text=":=" UId="340" />
+  <Blank UId="341" />
+  <Access Scope="LocalVariable" UId="342">
+    <Symbol UId="343">
+      <Component Name="y1" UId="344" />
+    </Symbol>
+  </Access>
+  <Token Text=";" UId="345" />
+  <NewLine UId="346" />
+  <Blank Num="4" UId="347" />
+  <Token Text="ELSE" UId="348" />
+  <NewLine UId="349" />
+  <Blank Num="6" UId="350" />
+  <LineComment UId="351">
+    <Text UId="352"> resolved equation --&gt; F(x) = y = m*x+t, where m = slope/gradient, t = intercept</Text>
+  </LineComment>
+  <NewLine UId="353" />
+  <Blank Num="6" UId="354" />
+  <Access Scope="LocalVariable" UId="355">
+    <Symbol UId="356">
+      <Component Name="tempY" UId="357" />
+    </Symbol>
+  </Access>
+  <Blank UId="358" />
+  <Token Text=":=" UId="359" />
+  <Blank UId="360" />
+  <Token Text="(" UId="361" />
+  <Access Scope="LocalVariable" UId="362">
+    <Symbol UId="363">
+      <Component Name="y2" UId="364" />
+    </Symbol>
+  </Access>
+  <Blank UId="365" />
+  <Token Text="-" UId="366" />
+  <Blank UId="367" />
+  <Access Scope="LocalVariable" UId="368">
+    <Symbol UId="369">
+      <Component Name="y1" UId="370" />
+    </Symbol>
+  </Access>
+  <Token Text=")" UId="371" />
+  <Blank UId="372" />
+  <Token Text="/" UId="373" />
+  <Blank UId="374" />
+  <Token Text="(" UId="375" />
+  <Access Scope="LocalVariable" UId="376">
+    <Symbol UId="377">
+      <Component Name="x2" UId="378" />
+    </Symbol>
+  </Access>
+  <Blank UId="379" />
+  <Token Text="-" UId="380" />
+  <Blank UId="381" />
+  <Access Scope="LocalVariable" UId="382">
+    <Symbol UId="383">
+      <Component Name="x1" UId="384" />
+    </Symbol>
+  </Access>
+  <Token Text=")" UId="385" />
+  <Blank UId="386" />
+  <Token Text="*" UId="387" />
+  <Blank UId="388" />
+  <Token Text="(" UId="389" />
+  <Access Scope="LocalVariable" UId="390">
+    <Symbol UId="391">
+      <Component Name="x" UId="392" />
+    </Symbol>
+  </Access>
+  <Blank UId="393" />
+  <Token Text="-" UId="394" />
+  <Blank UId="395" />
+  <Access Scope="LocalVariable" UId="396">
+    <Symbol UId="397">
+      <Component Name="x1" UId="398" />
+    </Symbol>
+  </Access>
+  <Token Text=")" UId="399" />
+  <Blank UId="400" />
+  <Token Text="+" UId="401" />
+  <Blank UId="402" />
+  <Access Scope="LocalVariable" UId="403">
+    <Symbol UId="404">
+      <Component Name="y1" UId="405" />
+    </Symbol>
+  </Access>
+  <Token Text=";" UId="406" />
+  <NewLine UId="407" />
+  <Blank Num="4" UId="408" />
+  <Token Text="END_IF" UId="409" />
+  <Token Text=";" UId="410" />
+  <NewLine UId="411" />
+  <Blank Num="4" UId="412" />
+  <NewLine UId="413" />
+  <Blank Num="4" UId="414" />
+  <LineComment UId="415">
+    <Text UId="416"> Check if upper or lower limit is exceeded</Text>
+  </LineComment>
+  <NewLine UId="417" />
+  <Blank Num="4" UId="418" />
+  <Token Text="IF" UId="419" />
+  <Blank UId="420" />
+  <Token Text="(" UId="421" />
+  <Access Scope="LocalVariable" UId="422">
+    <Symbol UId="423">
+      <Component Name="tempY" UId="424" />
+    </Symbol>
+  </Access>
+  <Blank UId="425" />
+  <Token Text="&lt;" UId="426" />
+  <Blank UId="427" />
+  <Access Scope="LocalVariable" UId="428">
+    <Symbol UId="429">
+      <Component Name="yMin" UId="430" />
+    </Symbol>
+  </Access>
+  <Token Text=")" UId="431" />
+  <Blank UId="432" />
+  <Token Text="THEN" UId="433" />
+  <NewLine UId="434" />
+  <Blank Num="6" UId="435" />
+  <Access Scope="LocalVariable" UId="436">
+    <Symbol UId="437">
+      <Component Name="tempY" UId="438" />
+    </Symbol>
+  </Access>
+  <Blank UId="439" />
+  <Token Text=":=" UId="440" />
+  <Blank UId="441" />
+  <Access Scope="LocalVariable" UId="442">
+    <Symbol UId="443">
+      <Component Name="yMin" UId="444" />
+    </Symbol>
+  </Access>
+  <Token Text=";" UId="445" />
+  <NewLine UId="446" />
+  <Blank Num="6" UId="447" />
+  <Access Scope="LocalVariable" UId="448">
+    <Symbol UId="449">
+      <Component Name="tempStatus" UId="450" />
+    </Symbol>
+  </Access>
+  <Blank UId="451" />
+  <Token Text=":=" UId="452" />
+  <Blank UId="453" />
+  <Access Scope="LocalConstant" UId="454">
+    <Constant Name="WARN_Y_LIMITED_TO_YMIN" UId="455" />
+  </Access>
+  <Token Text=";" UId="458" />
+  <Blank Num="2" UId="459" />
+  <LineComment UId="460">
+    <Text UId="461"> set warning indicator</Text>
+  </LineComment>
+  <NewLine UId="462" />
+  <Blank Num="4" UId="463" />
+  <Token Text="ELSIF" UId="464" />
+  <Blank UId="465" />
+  <Token Text="(" UId="466" />
+  <Access Scope="LocalVariable" UId="467">
+    <Symbol UId="468">
+      <Component Name="tempY" UId="469" />
+    </Symbol>
+  </Access>
+  <Blank UId="470" />
+  <Token Text="&gt;" UId="471" />
+  <Blank UId="472" />
+  <Access Scope="LocalVariable" UId="473">
+    <Symbol UId="474">
+      <Component Name="yMax" UId="475" />
+    </Symbol>
+  </Access>
+  <Token Text=")" UId="476" />
+  <Blank UId="477" />
+  <Token Text="THEN" UId="478" />
+  <NewLine UId="479" />
+  <Blank Num="6" UId="480" />
+  <Access Scope="LocalVariable" UId="481">
+    <Symbol UId="482">
+      <Component Name="tempY" UId="483" />
+    </Symbol>
+  </Access>
+  <Blank UId="484" />
+  <Token Text=":=" UId="485" />
+  <Blank UId="486" />
+  <Access Scope="LocalVariable" UId="487">
+    <Symbol UId="488">
+      <Component Name="yMax" UId="489" />
+    </Symbol>
+  </Access>
+  <Token Text=";" UId="490" />
+  <NewLine UId="491" />
+  <Blank Num="6" UId="492" />
+  <Access Scope="LocalVariable" UId="493">
+    <Symbol UId="494">
+      <Component Name="tempStatus" UId="495" />
+    </Symbol>
+  </Access>
+  <Blank UId="496" />
+  <Token Text=":=" UId="497" />
+  <Blank UId="498" />
+  <Access Scope="LocalConstant" UId="499">
+    <Constant Name="WARN_Y_LIMITED_TO_YMAX" UId="500" />
+  </Access>
+  <Token Text=";" UId="503" />
+  <Blank Num="2" UId="504" />
+  <LineComment UId="505">
+    <Text UId="506"> set warning indicator</Text>
+  </LineComment>
+  <NewLine UId="507" />
+  <Blank Num="4" UId="508" />
+  <Token Text="END_IF" UId="509" />
+  <Token Text=";" UId="510" />
+  <NewLine UId="511" />
+  <Blank Num="2" UId="512" />
+  <Token Text="END_IF" UId="513" />
+  <Token Text=";" UId="514" />
+  <NewLine UId="515" />
+  <Token Text="END_REGION" UId="516" />
+  <NewLine Num="2" UId="517" />
+  <Token Text="REGION" UId="518" />
+  <Blank UId="519" />
+  <Text UId="520">OUTPUTS  </Text>
+  <NewLine UId="521" />
+  <Blank Num="2" UId="522" />
+  <LineComment UId="523">
+    <Text UId="524"> set status and error output</Text>
+  </LineComment>
+  <NewLine UId="525" />
+  <Blank Num="2" UId="526" />
+  <Access Scope="LocalVariable" UId="527">
+    <Symbol UId="528">
+      <Component Name="status" UId="529" />
+    </Symbol>
+  </Access>
+  <Blank UId="530" />
+  <Token Text=":=" UId="531" />
+  <Blank UId="532" />
+  <Access Scope="LocalVariable" UId="533">
+    <Symbol UId="534">
+      <Component Name="tempStatus" UId="535" />
+    </Symbol>
+  </Access>
+  <Token Text=";" UId="536" />
+  <NewLine UId="537" />
+  <Blank Num="2" UId="538" />
+  <Access Scope="LocalVariable" UId="539">
+    <Symbol UId="540">
+      <Component Name="error" UId="541" />
+    </Symbol>
+  </Access>
+  <Blank UId="542" />
+  <Token Text=":=" UId="543" />
+  <Blank UId="544" />
+  <Access Scope="LocalVariable" UId="545">
+    <Symbol UId="546">
+      <Component Name="tempStatus" UId="547" />
+      <Token Text="." UId="548" />
+      <Token Text="%X15" UId="549" />
+    </Symbol>
+  </Access>
+  <Token Text=";" UId="550" />
+  <NewLine UId="551" />
+  <Blank Num="2" UId="552" />
+  <LineComment UId="553">
+    <Text UId="554"> set return value</Text>
+  </LineComment>
+  <NewLine UId="555" />
+  <Blank Num="2" UId="556" />
+  <Access Scope="LocalVariable" UId="557">
+    <Symbol UId="558">
+      <Component Name="LGF_ScaleLinear" UId="559" />
+    </Symbol>
+  </Access>
+  <Blank UId="560" />
+  <Token Text=":=" UId="561" />
+  <Blank UId="562" />
+  <Access Scope="LocalVariable" UId="563">
+    <Symbol UId="564">
+      <Component Name="tempY" UId="565" />
+    </Symbol>
+  </Access>
+  <Token Text=";" UId="566" />
+  <NewLine UId="567" />
+  <Blank Num="2" UId="568" />
+  <LineComment UId="569">
+    <Text UId="570">ENO mechanism is not used - forced to true.</Text>
+  </LineComment>
+  <NewLine UId="571" />
+  <Blank Num="2" UId="572" />
+  <Access Scope="PredefinedVariable" UId="573">
+    <PredefinedVariable Name="ENO" UId="574" />
+  </Access>
+  <Blank UId="575" />
+  <Token Text=":=" UId="576" />
+  <Blank UId="577" />
+  <Access Scope="LiteralConstant" UId="578">
+    <Constant UId="579">
+      <ConstantValue UId="581">TRUE</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="582" />
+  <NewLine UId="583" />
+  <Token Text="END_REGION" UId="584" />
+</StructuredText></NetworkSource>
+          <ProgrammingLanguage>SCL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="4" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="5" CompositionName="Items">
+                <AttributeList>
+                  <Culture>zh-CN</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="6" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="7" CompositionName="Items">
+                <AttributeList>
+                  <Culture>zh-CN</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <MultilingualText ID="8" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="9" CompositionName="Items">
+            <AttributeList>
+              <Culture>zh-CN</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>

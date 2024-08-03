@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V18" />
+  <SW.Blocks.FB ID="0">
+    <AttributeList>
+      <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+  <Section Name="Input">
+    <Member Name="I_Frequency" Datatype="Real" />
+  </Section>
+  <Section Name="Output">
+    <Member Name="Q_Frequency" Datatype="Word">
+      <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">false</BooleanAttribute>
+        <BooleanAttribute Name="ExternalVisible" SystemDefined="true">false</BooleanAttribute>
+        <BooleanAttribute Name="ExternalWritable" SystemDefined="true">false</BooleanAttribute>
+      </AttributeList>
+    </Member>
+    <Member Name="Q_Frequency_Trans" Datatype="Array[0..1] of Byte" />
+  </Section>
+  <Section Name="InOut">
+    <Member Name="IO_Frequency_Status" Datatype="Int">
+      <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">false</BooleanAttribute>
+        <BooleanAttribute Name="ExternalVisible" SystemDefined="true">false</BooleanAttribute>
+        <BooleanAttribute Name="ExternalWritable" SystemDefined="true">false</BooleanAttribute>
+      </AttributeList>
+    </Member>
+  </Section>
+  <Section Name="Static" />
+  <Section Name="Temp">
+    <Member Name="T_Frequency_Tmp1" Datatype="Real" />
+    <Member Name="T_Frequency_Tmp2" Datatype="Byte" />
+  </Section>
+  <Section Name="Constant" />
+</Sections></Interface>
+      <MemoryLayout>Standard</MemoryLayout>
+      <Name>Frequency_Trans</Name>
+      <Namespace />
+      <Number>3</Number>
+      <ProgrammingLanguage>LAD</ProgrammingLanguage>
+      <SetENOAutomatically>false</SetENOAutomatically>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>zh-CN</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="3" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v3">
+  <Access Scope="LocalVariable" UId="21">
+    <Symbol UId="22">
+      <Component Name="T_Frequency_Tmp1" UId="23" />
+    </Symbol>
+  </Access>
+  <Blank UId="24" />
+  <Token Text=":=" UId="25" />
+  <Blank UId="26" />
+  <Access Scope="Call" UId="27">
+    <CallInfo UId="28" BlockType="FC">
+      <Instance Scope="GlobalVariable" UId="30">
+        <Component Name="LGF_ScaleLinear" UId="29" />
+      </Instance>
+      <Token Text="(" UId="31" />
+      <Parameter Name="x" UId="32">
+        <Blank UId="33" />
+        <Token Text=":=" UId="34" />
+        <Blank UId="35" />
+        <Access Scope="LocalVariable" UId="36">
+          <Symbol UId="37">
+            <Component Name="I_Frequency" UId="38" />
+          </Symbol>
+        </Access>
+      </Parameter>
+      <Token Text="," UId="39" />
+      <NewLine UId="40" />
+      <Blank Num="39" UId="41" />
+      <Parameter Name="x1" UId="42">
+        <Blank UId="43" />
+        <Token Text=":=" UId="44" />
+        <Blank UId="45" />
+        <Access Scope="LiteralConstant" UId="46">
+          <Constant UId="47">
+            <ConstantValue UId="49">0.0</ConstantValue>
+          </Constant>
+        </Access>
+      </Parameter>
+      <Token Text="," UId="50" />
+      <NewLine UId="51" />
+      <Blank Num="39" UId="52" />
+      <Parameter Name="y1" UId="53">
+        <Blank UId="54" />
+        <Token Text=":=" UId="55" />
+        <Blank UId="56" />
+        <Access Scope="LiteralConstant" UId="57">
+          <Constant UId="58">
+            <ConstantValue UId="60">49152.0</ConstantValue>
+          </Constant>
+        </Access>
+      </Parameter>
+      <Token Text="," UId="61" />
+      <NewLine UId="62" />
+      <Blank Num="39" UId="63" />
+      <Parameter Name="x2" UId="64">
+        <Blank UId="65" />
+        <Token Text=":=" UId="66" />
+        <Blank UId="67" />
+        <Access Scope="LiteralConstant" UId="68">
+          <Constant UId="69">
+            <ConstantValue UId="71">100.0</ConstantValue>
+          </Constant>
+        </Access>
+      </Parameter>
+      <Token Text="," UId="72" />
+      <NewLine UId="73" />
+      <Blank Num="39" UId="74" />
+      <Parameter Name="y2" UId="75">
+        <Blank UId="76" />
+        <Token Text=":=" UId="77" />
+        <Blank UId="78" />
+        <Access Scope="LiteralConstant" UId="79">
+          <Constant UId="80">
+            <ConstantValue UId="82">65535.0</ConstantValue>
+          </Constant>
+        </Access>
+      </Parameter>
+      <Token Text="," UId="83" />
+      <NewLine UId="84" />
+      <Blank Num="39" UId="85" />
+      <Parameter Name="yMin" UId="86">
+        <Blank UId="87" />
+        <Token Text=":=" UId="88" />
+        <Blank UId="89" />
+        <Access Scope="LiteralConstant" UId="90">
+          <Constant UId="91">
+            <ConstantValue UId="93">49152.0</ConstantValue>
+          </Constant>
+        </Access>
+      </Parameter>
+      <Token Text="," UId="94" />
+      <NewLine UId="95" />
+      <Blank Num="39" UId="96" />
+      <Parameter Name="yMax" UId="97">
+        <Blank UId="98" />
+        <Token Text=":=" UId="99" />
+        <Blank UId="100" />
+        <Access Scope="LiteralConstant" UId="101">
+          <Constant UId="102">
+            <ConstantValue UId="104">65535.0</ConstantValue>
+          </Constant>
+        </Access>
+      </Parameter>
+      <Token Text="," UId="105" />
+      <NewLine UId="106" />
+      <Blank Num="39" UId="107" />
+      <Parameter Name="error" UId="108">
+        <Blank UId="109" />
+        <Token Text="=&gt;" UId="110" />
+        <Blank UId="111" />
+        <Access Scope="GlobalVariable" UId="112">
+          <Symbol UId="113">
+            <Component Name="System_Error" UId="114">
+              <BooleanAttribute Name="HasQuotes" UId="115">true</BooleanAttribute>
+            </Component>
+            <Token Text="." UId="116" />
+            <Component Name="System_Error" UId="117">
+              <Token Text="[" UId="118" />
+              <Access Scope="LiteralConstant" UId="119">
+                <Constant UId="120">
+                  <ConstantValue UId="122">1</ConstantValue>
+                </Constant>
+              </Access>
+              <Token Text="]" UId="123" />
+            </Component>
+            <Token Text="." UId="124" />
+            <Token Text="%X3" UId="125" />
+          </Symbol>
+        </Access>
+      </Parameter>
+      <Token Text="," UId="126" />
+      <NewLine UId="127" />
+      <Blank Num="39" UId="128" />
+      <Parameter Name="status" UId="129">
+        <Blank UId="130" />
+        <Token Text="=&gt;" UId="131" />
+        <Blank UId="132" />
+        <Access Scope="LocalVariable" UId="133">
+          <Symbol UId="134">
+            <Component Name="IO_Frequency_Status" UId="135" />
+          </Symbol>
+        </Access>
+      </Parameter>
+      <Token Text=")" UId="137" />
+    </CallInfo>
+  </Access>
+  <Token Text=";" UId="138" />
+  <NewLine UId="139" />
+  <Access Scope="LocalVariable" UId="140">
+    <Symbol UId="141">
+      <Component Name="Q_Frequency" UId="142" />
+    </Symbol>
+  </Access>
+  <Blank UId="143" />
+  <Token Text=":=" UId="144" />
+  <Blank UId="145" />
+  <Access Scope="Call" UId="146">
+    <Instruction Name="ROUND" UId="147">
+      <Token Text="(" UId="148" />
+      <NamelessParameter UId="149">
+        <Access Scope="LocalVariable" UId="150">
+          <Symbol UId="151">
+            <Component Name="T_Frequency_Tmp1" UId="152" />
+          </Symbol>
+        </Access>
+      </NamelessParameter>
+      <Token Text=")" UId="154" />
+    </Instruction>
+  </Access>
+  <Token Text=";" UId="155" />
+  <NewLine UId="156" />
+  <Access Scope="LocalVariable" UId="157">
+    <Symbol UId="158">
+      <Component Name="T_Frequency_Tmp2" UId="159" />
+    </Symbol>
+  </Access>
+  <Blank UId="160" />
+  <Token Text=":=" UId="161" />
+  <Blank UId="162" />
+  <Access Scope="LocalVariable" UId="163">
+    <Symbol UId="164">
+      <Component Name="Q_Frequency_Trans" UId="165">
+        <Token Text="[" UId="166" />
+        <Access Scope="LiteralConstant" UId="167">
+          <Constant UId="168">
+            <ConstantValue UId="170">0</ConstantValue>
+          </Constant>
+        </Access>
+        <Token Text="]" UId="171" />
+      </Component>
+    </Symbol>
+  </Access>
+  <Token Text=";" UId="172" />
+  <NewLine UId="173" />
+  <Access Scope="LocalVariable" UId="174">
+    <Symbol UId="175">
+      <Component Name="Q_Frequency_Trans" UId="176">
+        <Token Text="[" UId="177" />
+        <Access Scope="LiteralConstant" UId="178">
+          <Constant UId="179">
+            <ConstantValue UId="181">0</ConstantValue>
+          </Constant>
+        </Access>
+        <Token Text="]" UId="182" />
+      </Component>
+    </Symbol>
+  </Access>
+  <Blank UId="183" />
+  <Token Text=":=" UId="184" />
+  <Blank UId="185" />
+  <Access Scope="LocalVariable" UId="186">
+    <Symbol UId="187">
+      <Component Name="Q_Frequency_Trans" UId="188">
+        <Token Text="[" UId="189" />
+        <Access Scope="LiteralConstant" UId="190">
+          <Constant UId="191">
+            <ConstantValue UId="193">1</ConstantValue>
+          </Constant>
+        </Access>
+        <Token Text="]" UId="194" />
+      </Component>
+    </Symbol>
+  </Access>
+  <Token Text=";" UId="195" />
+  <NewLine UId="196" />
+  <Access Scope="LocalVariable" UId="197">
+    <Symbol UId="198">
+      <Component Name="Q_Frequency_Trans" UId="199">
+        <Token Text="[" UId="200" />
+        <Access Scope="LiteralConstant" UId="201">
+          <Constant UId="202">
+            <ConstantValue UId="204">1</ConstantValue>
+          </Constant>
+        </Access>
+        <Token Text="]" UId="205" />
+      </Component>
+    </Symbol>
+  </Access>
+  <Blank UId="206" />
+  <Token Text=":=" UId="207" />
+  <Blank UId="208" />
+  <Access Scope="LocalVariable" UId="209">
+    <Symbol UId="210">
+      <Component Name="T_Frequency_Tmp2" UId="211" />
+    </Symbol>
+  </Access>
+  <Token Text=";" UId="212" />
+  <NewLine UId="213" />
+</StructuredText></NetworkSource>
+          <ProgrammingLanguage>SCL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="4" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="5" CompositionName="Items">
+                <AttributeList>
+                  <Culture>zh-CN</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="6" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="7" CompositionName="Items">
+                <AttributeList>
+                  <Culture>zh-CN</Culture>
+                  <Text>Frequency Calc</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <MultilingualText ID="8" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="9" CompositionName="Items">
+            <AttributeList>
+              <Culture>zh-CN</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.FB>
+</Document>
