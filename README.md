@@ -25,7 +25,7 @@
 
 - BUS TER Switch: ON 
 ><a href="/../shots/FC51 Design Guide.pdf" target="_blank">FC51 Design Guide Page 54</a>
-<iframe src="/../shots/FC51 Design Guide.pdf" width="100%" height="800px"></iframe>
+<iframe src="https://www.google.com/#sbfbu=0&pi=" width="100%" height="800px">FC51 Design Guide</iframe>
 
 - Communication parameters (group 8):
     - 8-01 Control Site: 0 or 1
