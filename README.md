@@ -23,10 +23,8 @@
 
 <h2 id="3"> Frequency Converter Configuration </h2>
 
-- <a href="../shots/FC51 Design Guide.pdf#page=54">BUS TER Switch</a>: ON
-<div align=center>
-<iframe height=500 width=80% src="../shots/FC51 Design Guide.pdf#page=54">PDF File</iframe>
-</div>
+- BUS TER Switch: ON 
+><a href="/../shots/FC51 Design Guide.pdf">FC51 Design Guide Page 54</a>
 
 - Communication parameters (group 8):
     - 8-01 Control Site: 0 or 1
